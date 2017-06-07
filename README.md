@@ -36,7 +36,7 @@ println(s" Number of frequent itemsets: " + numFreqItemsets)
 println(s" Total time = " + totalTime/1000 + "s")
 println(s"=====================================================================")
 
-    spark.stop()
+spark.stop()
 ```
 
 # Requirements
