@@ -5,36 +5,36 @@ Spark-FIM is a library of scalable frequent itemset mining algorithms based on S
 # Examples
 ## Scala API
 ```scala
-    val minSupport = 0.85
-    val numPartitions = 4
+val minSupport = 0.85
+val numPartitions = 4
 
-    val spark = SparkSession
-      .builder()
-      .appName("PHyrbidFINExample")
-      .master("local[*]")
-      .getOrCreate()
+val spark = SparkSession
+  .builder()
+  .appName("PHyrbidFINExample")
+  .master("local[*]")
+  .getOrCreate()
 
-    val schema = new StructType(Array(
-      StructField("features", StringType)))
-    val transactions = spark.read.schema(schema).text("data/chess.csv").cache()
-    val numTransactions = transactions.count()
-    val startTime = currentTime
-    val freqItemsets = new PHybridFIN()
-      .setMinSupport(minSupport)
-      .setNumPartitions(transactions.rdd.getNumPartitions)
-      .setDelimiter(" ")
-      .transform(transactions)
+val schema = new StructType(Array(
+  StructField("features", StringType)))
+val transactions = spark.read.schema(schema).text("data/chess.csv").cache()
+val numTransactions = transactions.count()
+val startTime = currentTime
+val freqItemsets = new PHybridFIN()
+  .setMinSupport(minSupport)
+  .setNumPartitions(transactions.rdd.getNumPartitions)
+  .setDelimiter(" ")
+  .transform(transactions)
 
-    val numFreqItemsets = freqItemsets.count()
-    val endTime = currentTime
-    val totalTime: Double = endTime - startTime
+val numFreqItemsets = freqItemsets.count()
+val endTime = currentTime
+val totalTime: Double = endTime - startTime
 
-    println(s"====================== PHybridFIN - STATS ===========================")
-    println(s" minSupport = " + minSupport + s"    numPartition = " + numPartitions)
-    println(s" Number of transactions: " + numTransactions)
-    println(s" Number of frequent itemsets: " + numFreqItemsets)
-    println(s" Total time = " + totalTime/1000 + "s")
-    println(s"=====================================================================")
+println(s"====================== PHybridFIN - STATS ===========================")
+println(s" minSupport = " + minSupport + s"    numPartition = " + numPartitions)
+println(s" Number of transactions: " + numTransactions)
+println(s" Number of frequent itemsets: " + numFreqItemsets)
+println(s" Total time = " + totalTime/1000 + "s")
+println(s"=====================================================================")
 
     spark.stop()
 ```
